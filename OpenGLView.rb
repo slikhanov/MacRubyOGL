@@ -6,15 +6,21 @@
 #  Copyright 2012 Serhiy Likhanov. All rights reserved.
 #
 
+require 'Shader'
+
 class OpenGLView < NSOpenGLView
 
     @@color = 0.001
-    
+   
+    def prepareOpenGL
+        Shader.compile_shader
+    end
+
     def reshape
         rect = bounds
         glViewport(0, 0, NSWidth(rect), NSHeight(rect))
     end
-    
+
     def drawRect(rect)
         @@color += 0.001
         glClearColor(0, @@color, 0, 1)
