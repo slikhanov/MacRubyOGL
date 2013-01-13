@@ -13,7 +13,9 @@ class OpenGLView < NSOpenGLView
     @@color = 0.001
    
     def prepareOpenGL
-        Shader.compile_shader
+        puts glGetString GL_VERSION
+        puts glGetString GL_SHADING_LANGUAGE_VERSION
+        Shader.compile_shader GL_VERTEX_SHADER, "shaders/simple.vert"
     end
 
     def reshape
