@@ -2,7 +2,6 @@ class Shader
     attr_reader :shader
 
     def initialize(shader_type, shader_source)
-        puts shader_source
         @shader_type = shader_type
         @shader_source = shader_source
 
@@ -25,24 +24,6 @@ class Shader
         shader_source_ptr = Pointer.new('*')
         shader_source_ptr.assign @shader_source.pointer
         shader_source_ptr
-    end
-
-    def self.compile_shader shader_type, shader_file
-        program = glCreateProgram
-        shader_source = File.open(shader_file, 'rb') { |file| file.read }
-        shader_length = Pointer.new_with_type :int
-        shader_length.assign shader_source.length
-        shader_source_ptr = Pointer.new('*')
-        shader_source_ptr.assign shader_source.pointer
-        shader = glCreateShader shader_type
-        glShaderSource shader, 1, shader_source_ptr, shader_length
-        glCompileShader shader
-        get_compile_status shader
-        glAttachShader program, shader
-        #glValidateProgram prog
-
-        glLinkProgram program
-        glUseProgram program
     end
 
     def get_compile_status
