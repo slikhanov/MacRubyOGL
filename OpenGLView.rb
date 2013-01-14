@@ -6,7 +6,7 @@
 #  Copyright 2012 Serhiy Likhanov. All rights reserved.
 #
 
-require 'Shader'
+require 'ShaderProgram'
 
 class OpenGLView < NSOpenGLView
 
@@ -15,7 +15,8 @@ class OpenGLView < NSOpenGLView
     def prepareOpenGL
         puts glGetString GL_VERSION
         puts glGetString GL_SHADING_LANGUAGE_VERSION
-        Shader.compile_shader GL_VERTEX_SHADER, "shaders/simple.vert"
+        program = ShaderProgram.new "simple"
+        program.use
     end
 
     def reshape

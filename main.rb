@@ -19,7 +19,7 @@ main_window.contentView = content_view
 
 # Identifying pixel format
 attributes_source = [
-    NSOpenGLPFAOpenGLProfile, NSOpenGLProfileVersion3_2Core, 
+    #NSOpenGLPFAOpenGLProfile, NSOpenGLProfileVersion3_2Core, 
     NSOpenGLPFAColorSize, 24,
     NSOpenGLPFAAlphaSize, 8,
     NSOpenGLPFAAccelerated,
