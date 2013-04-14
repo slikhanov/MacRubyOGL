@@ -7,6 +7,7 @@
 #
 
 require 'ShaderProgram'
+require 'Mesh'
 
 class OpenGLView < NSOpenGLView
 
@@ -35,6 +36,8 @@ class OpenGLView < NSOpenGLView
     end
     
     def drawAnObject
+        mesh = Mesh.new
+
         glColor3f(1.0, 0.85, 0.35)
         glBegin(GL_TRIANGLES)
 
