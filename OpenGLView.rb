@@ -37,13 +37,6 @@ class OpenGLView < NSOpenGLView
     
     def drawAnObject
         mesh = Mesh.new
-
-        glColor3f(1.0, 0.85, 0.35)
-        glBegin(GL_TRIANGLES)
-
-        glVertex3f(  0.0,  0.6, 0.0)
-        glVertex3f( -0.2, -0.3, 0.0)
-        glVertex3f(  0.2, -0.3 ,0.0)
-        glEnd()
+        mesh.draw
     end
 end
