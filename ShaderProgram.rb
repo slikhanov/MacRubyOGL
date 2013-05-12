@@ -7,10 +7,18 @@ class ShaderProgram
         glAttachShader(@program, vertex_shader.shader)
         fragment_shader = Shader.new GL_FRAGMENT_SHADER, File.open("shaders/" + material_name + ".frag", 'rb') { |file| file.read }
         glAttachShader(@program, fragment_shader.shader)
+
+        glBindAttribLocation(@program, 0, "in_Position")
+        puts glGetError
         glLinkProgram(@program)
+        @position_attribute_location = 0 
     end
 
     def use
         glUseProgram(@program)
+    end
+
+    def position
+        @position_attribute_location
     end
 end

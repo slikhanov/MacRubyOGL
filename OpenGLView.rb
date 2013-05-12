@@ -11,13 +11,12 @@ require 'Mesh'
 
 class OpenGLView < NSOpenGLView
 
-    @@color = 0.001
-   
     def prepareOpenGL
         puts glGetString GL_VERSION
         puts glGetString GL_SHADING_LANGUAGE_VERSION
-        program = ShaderProgram.new "simple"
-        program.use
+        @program = ShaderProgram.new "simple"
+        @program.use
+        @color = 0.2
     end
 
     def reshape
@@ -26,9 +25,10 @@ class OpenGLView < NSOpenGLView
     end
 
     def drawRect(rect)
-        @@color += 0.001
-        glClearColor(0, @@color, 0, 1)
-        glClear(GL_COLOR_BUFFER_BIT)
+        openGLContext.makeCurrentContext
+        @color += 0.001
+        glClearColor(0, @color, 0, 1)
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
         
         drawAnObject
         
@@ -36,7 +36,8 @@ class OpenGLView < NSOpenGLView
     end
     
     def drawAnObject
-        mesh = Mesh.new
+        mesh = Mesh.new(@program)
+        @program.use
         mesh.draw
     end
 end

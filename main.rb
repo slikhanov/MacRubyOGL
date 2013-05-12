@@ -7,7 +7,7 @@ require 'OpenGLView'
 app = NSApplication.sharedApplication
 
 window_frame = [0.0, 0.0, 800.0, 600.0]
-mask = NSTitledWindowMask | NSClosableWindowMask
+mask = NSTitledWindowMask | NSClosableWindowMask | NSResizableWindowMask
 
 main_window = NSWindow.alloc.initWithContentRect window_frame,
         styleMask: mask,
@@ -19,7 +19,7 @@ main_window.contentView = content_view
 
 # Identifying pixel format
 attributes_source = [
-    #NSOpenGLPFAOpenGLProfile, NSOpenGLProfileVersion3_2Core, 
+    NSOpenGLPFAOpenGLProfile, NSOpenGLProfileVersion3_2Core, 
     NSOpenGLPFAColorSize, 24,
     NSOpenGLPFAAlphaSize, 8,
     NSOpenGLPFAAccelerated,
