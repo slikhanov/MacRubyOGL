@@ -75,6 +75,5 @@ class Mesh
       @vao.enable
       glDrawArrays(GL_TRIANGLE_STRIP, 0, 5)
       @vao.disable
-      puts glGetError
     end
 end

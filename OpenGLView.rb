@@ -8,6 +8,7 @@
 
 require 'ShaderProgram'
 require 'Mesh'
+require 'MatrixBuffer'
 
 class OpenGLView < NSOpenGLView
 
@@ -15,8 +16,10 @@ class OpenGLView < NSOpenGLView
         puts glGetString GL_VERSION
         puts glGetString GL_SHADING_LANGUAGE_VERSION
         @program = ShaderProgram.new "simple"
-        @program.use
+        @mesh = Mesh.new(@program)
         @color = 0.2
+
+        viewMatrix = MatrixBuffer.new(Matrix.identity(4))
     end
 
     def reshape
@@ -36,8 +39,7 @@ class OpenGLView < NSOpenGLView
     end
     
     def drawAnObject
-        mesh = Mesh.new(@program)
         @program.use
-        mesh.draw
+        @mesh.draw
     end
 end
