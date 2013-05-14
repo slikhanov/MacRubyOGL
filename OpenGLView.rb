@@ -19,7 +19,7 @@ class OpenGLView < NSOpenGLView
         @mesh = Mesh.new(@program)
         @color = 0.2
 
-        viewMatrix = MatrixBuffer.new(Matrix.identity(4))
+        viewMatrix = MatrixBuffer.new(Matrix.scale_comp(1.0, 1.0, 1.0))
     end
 
     def reshape
