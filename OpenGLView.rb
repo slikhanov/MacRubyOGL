@@ -19,7 +19,17 @@ class OpenGLView < NSOpenGLView
         @mesh = Mesh.new(@program)
         @color = 0.2
 
-        puts Matrix.rotate(0.0, 1.0, 0.0, 0.2)
+        @model_matrix = Matrix.scale(0.2, 0.2, 0.2)
+        @view_matrix = Matrix.translate(0.0, 0.0, -50.0)
+        @projection_matrix = Matrix.perspective(
+            90.0, aspect_ratio, 0.001, 1000.0)
+        @mvp_matrix_buffer = MatrixBuffer.new(
+              @projection_matrix * @view_matrix * @model_matrix)
+    end
+
+    def aspect_ratio
+      rect = bounds
+      NSWidth(rect) / NSHeight(rect)
     end
 
     def reshape
@@ -40,6 +50,7 @@ class OpenGLView < NSOpenGLView
     
     def drawAnObject
         @program.use
+        glUniformMatrix4fv(@program.get_uniform_location("mvpMatrix"), 1, GL_FALSE, @mvp_matrix_buffer.data);
         @mesh.draw
     end
 end

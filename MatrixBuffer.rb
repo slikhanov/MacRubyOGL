@@ -37,7 +37,7 @@ class Matrix
   end
 
   def self.perspective(fov, aspect, znear, zfar)
-    xymax = znear * Math.tan(fov * PI_OVER_360)
+    xymax = znear * Math.tan(fov * 0.5 * Math::PI / 180.0)
     ymin = -xymax
     xmin = -xymax
 
@@ -61,6 +61,8 @@ class Matrix
 end
 
 class MatrixBuffer
+  attr_accessor :data
+
   def initialize(matrix)
     @data = build_data(matrix)
   end

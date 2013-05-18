@@ -21,4 +21,8 @@ class ShaderProgram
     def position
         @position_attribute_location
     end
+
+    def get_uniform_location(uniform_name)
+      glGetUniformLocation(@program, uniform_name)
+    end
 end
