@@ -61,19 +61,18 @@ class Mesh
       @vao.enable
 
       @data = BufferData.new([
-        -0.3, -0.2,
-        0.0, 0.0,
-        0.1, 0.1,
-        0.2, 0.4,
-        -0.3, 0.4
-      ], 2)
+        -1.0, -1.0, 0.0,
+        -1.0, 1.0, 0.0,
+        1.0, 1.0, 0.0,
+        1.0, -1.0, 0.0
+      ], 3)
       vbo = VertexBufferObject.new(@data, 0)
       @vao.disable
     end
 
     def draw
       @vao.enable
-      glDrawArrays(GL_TRIANGLE_STRIP, 0, 5)
+      glDrawArrays(GL_TRIANGLE_STRIP, 0, 3)
       @vao.disable
     end
 end
