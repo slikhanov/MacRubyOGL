@@ -30,33 +30,21 @@ class Matrix
     s = Math.sin(angle)
     t = 1 - c
     Matrix[
-      [t*(rot[0]**2)+c,          t*rot[0]*rot[1]-s*rot[2], t*rot[0]*rot[2]+s*rot[1], 0.0],
-      [t*rot[0]*rot[1]+s*rot[2], t*(rot[1]**2)+c,          t*rot[1]*rot[2]-s*rot[0], 0.0],
-      [t*rot[0]*rot[2]-s*rot[1], t*rot[1]*rot[2]+s*rot[0], t*(rot[2]**2)+c,          0.0],
+      [t*rot[0]*rot[0]+c,        t*rot[0]*rot[1]-s*rot[2], t*rot[0]*rot[2]+s*rot[1], 0.0],
+      [t*rot[0]*rot[1]+s*rot[2], t*rot[1]*rot[1]+c,        t*rot[1]*rot[2]-s*rot[0], 0.0],
+      [t*rot[0]*rot[2]-s*rot[1], t*rot[1]*rot[2]+s*rot[0], t*rot[2]*rot[2]+c,        0.0],
       [0.0,                      0.0,                      0.0,                      1.0]]
   end
 
   def self.perspective(fov, aspect, znear, zfar)
-    xymax = znear * Math.tan(fov * 0.5 * Math::PI / 180.0)
-    ymin = -xymax
-    xmin = -xymax
-
-    width = xymax - xmin
-    height = xymax - ymin
-
-    depth = zfar - znear
-    q = -(zfar + znear) / depth
-    qn = -2.0 * (zfar * znear) / depth
-
-    w = 2.0 * znear / width
-    w = w / aspect
-    h = 2 * znear / height
-
+    h = 1.0 / Math.tan(fov * Math::PI / 360.0);
+    neg_depth = znear - zfar
     Matrix[
-      [w, 0, 0, 0],
-      [0, h, 0, 0],
-      [0, 0, q, -1],
-      [0, 0, qn, 0]]
+      [h / aspect, 0.0, 0.0, 0.0],
+      [0.0, h, 0.0, 0.0],
+      [0.0, 0.0, (zfar - znear) / neg_depth, -1.0],
+      [0.0, 0.0, 2.0 * (znear * zfar) / neg_depth, 0.0]
+    ]
   end
 end
 

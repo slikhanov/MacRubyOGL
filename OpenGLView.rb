@@ -38,8 +38,7 @@ class OpenGLView < NSOpenGLView
 
     def drawRect(rect)
         openGLContext.makeCurrentContext
-        @color += 0.001
-        @rotation_angle += 0.1
+        @rotation_angle += 0.01
         glClearColor(0, @color, 0, 1)
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
        
@@ -51,7 +50,9 @@ class OpenGLView < NSOpenGLView
     
     def drawAnObject
         @program.use
-        glUniformMatrix4fv(@program.get_uniform_location("mvpMatrix"), 1, GL_FALSE, @mvp_matrix_buffer.data);
+        glUniformMatrix4fv(@program.get_uniform_location("modelMatrix"), 1, GL_FALSE, @model_matrix.data);
+        glUniformMatrix4fv(@program.get_uniform_location("viewMatrix"), 1, GL_FALSE, @view_matrix.data);
+        glUniformMatrix4fv(@program.get_uniform_location("projMatrix"), 1, GL_FALSE, @projection_matrix.data);
         @mesh.draw
     end
 
@@ -60,12 +61,10 @@ class OpenGLView < NSOpenGLView
     end
 
     def recalc_matrices
-        @model_matrix = Matrix.rotate(0.0, 1.0, 0.0, @rotation_angle) * Matrix.scale(0.2, 0.2, 0.2)
-        @view_matrix = Matrix.translate(0.0, 0.0, -500.0)
-        @projection_matrix = Matrix.perspective(
-            90.0, aspect_ratio, 0.001, 100.0)
-        @mvp_matrix_buffer = MatrixBuffer.new(
-              @projection_matrix * @view_matrix * @model_matrix)
+        @model_matrix = MatrixBuffer.new(Matrix.rotate(1.0, 0.0, 0.0, @rotation_angle))
+        @view_matrix = MatrixBuffer.new(Matrix.translate(0.0, 0.0, -10.0))
+        @projection_matrix = MatrixBuffer.new(Matrix.perspective(
+            90.0, aspect_ratio, 0.1, 100.0))
     end
 
 end
