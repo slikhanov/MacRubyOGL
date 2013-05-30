@@ -9,6 +9,7 @@ class ShaderProgram
         glAttachShader(@program, fragment_shader.shader)
 
         glBindAttribLocation(@program, 0, "in_Position")
+        glBindAttribLocation(@program, 1, "in_Color")
         puts glGetError
         glLinkProgram(@program)
         @position_attribute_location = 0 

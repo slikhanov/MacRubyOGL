@@ -70,6 +70,14 @@ class Mesh
         1.0, -1.0, 0.0
       ], 3)
       vbo = VertexBufferObject.new(@data, 0)
+      color_vbo = VertexBufferObject.new(BufferData.new(
+         [0.6, 0.3, 0.8,
+          0.7, 0.2, 0.4,
+          0.4, 0.9, 0.3,
+          
+          0.6, 0.3, 0.8,
+          0.7, 0.2, 0.4,
+          0.3, 0.2, 0.7], 3), 1)
       @vao.disable
     end
 
