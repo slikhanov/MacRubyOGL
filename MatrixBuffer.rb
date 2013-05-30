@@ -18,10 +18,10 @@ class Matrix
   end
 
   def self.translate(x, y, z)
-    Matrix[[1.0, 0.0, 0.0, x],
-           [0.0, 1.0, 0.0, y],
-           [0.0, 0.0, 1.0, z],
-           [0.0, 0.0, 0.0, 1.0]]
+    Matrix[[1.0, 0.0, 0.0, 0.0],
+           [0.0, 1.0, 0.0, 0.0],
+           [0.0, 0.0, 1.0, 0.0],
+           [x,   y,   z,   1.0]]
   end
 
   def self.rotate(x, y, z, angle)

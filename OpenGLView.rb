@@ -61,10 +61,10 @@ class OpenGLView < NSOpenGLView
     end
 
     def recalc_matrices
-        @model_matrix = MatrixBuffer.new(Matrix.rotate(1.0, 0.0, 0.0, @rotation_angle))
-        @view_matrix = MatrixBuffer.new(Matrix.translate(0.0, 0.0, -10.0))
+        @model_matrix = MatrixBuffer.new(Matrix.rotate(0.0, 1.0, 0.0, @rotation_angle))
+        @view_matrix = MatrixBuffer.new(Matrix.translate(0.0, 0.0, -@rotation_angle))
         @projection_matrix = MatrixBuffer.new(Matrix.perspective(
-            90.0, aspect_ratio, 0.1, 100.0))
+            60.0, 1.0 * aspect_ratio, 0.1, 100.0))
     end
 
 end
